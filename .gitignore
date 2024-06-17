@@ -1,0 +1,5 @@
+config.py
+*.json
+logs/
+*.log
+binance_*_2020.json
