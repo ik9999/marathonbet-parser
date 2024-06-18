@@ -2,14 +2,12 @@ version: '3.8'
 
 services:
   redis-stack:
-    image: redis/redis-stack:latest
+    image: redis/redis-stack-server:latest
     container_name: redis-stack
     environment:
       - REDIS_ARGS="--requirepass=15n7r8c18e38ws61bp2ead2h5hdyf8pr73664j72sz25gnv7"
-      - REDISINSIGHT_AUTH_PASSWORD="15n7r8c18e38ws61bp2ead2h5hdyf8pr73664j72sz25gnv7"
     ports:
       - "6379:6379"
-      - "8001:8001"
     volumes:
       - ./local-data:/data
     restart: unless-stopped
