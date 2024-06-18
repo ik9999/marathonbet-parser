@@ -5,7 +5,7 @@ services:
     image: redis/redis-stack:latest
     container_name: redis-stack
     environment:
-      - REDIS_ARGS="--requirepass 15n7r8c18e38ws61bp2ead2h5hdyf8pr73664j72sz25gnv7"
+      REDIS_ARGS: "--requirepass 15n7r8c18e38ws61bp2ead2h5hdyf8pr73664j72sz25gnv7"
     ports:
       - "6379:6379"
       - "127.0.0.1:8001:8001"
