@@ -8,6 +8,7 @@ playwright = "*"
 redis = {extras = ["hiredis"], version = "*"}
 schedule = "*"
 loguru = "*"
+aioschedule = "*"
 
 [dev-packages]
 
