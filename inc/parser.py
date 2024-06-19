@@ -128,7 +128,7 @@ class Parser:
         try:
             if page.is_closed():
                 raise Exception("page is closed")
-            logger.trace("try_parse called for {}", self.item_to_parse['code'])
+            logger.trace("try_parse called for {}. Page url: {}", self.item_to_parse['code'], page.url)
             header_table_sel = 'table.market-table-name'
             header_table_els = page.locator(header_table_sel)
             logger.trace("try_parse for {}. header_table_els.count() {}", self.item_to_parse['code'], await header_table_els.count())

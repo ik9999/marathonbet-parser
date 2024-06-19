@@ -19,7 +19,7 @@ async def run_single_parser(parser: Parser, redis_man: RedisManager):
         await asyncio.sleep(0.15)
 
 async def run():
-    logger.info("Version 1.1 started. config: {}", config)
+    logger.info("Version 1.2 started. config: {}", config)
     browser_man = await BrowserManager.create()
     redis_man = RedisManager()
     parsers_list: list[Parser] = []
