@@ -14,12 +14,12 @@ async def run_single_parser(parser: Parser, redis_man: RedisManager):
         logger.trace("try_parse res for {}: {}", parser.item_to_parse['code'], res)
         redis_man.save_odds(parser.item_to_parse['code'], res)
         if res is None:
-            await asyncio.sleep(5)
+            await asyncio.sleep(0.15)
             continue
-        await asyncio.sleep(5)
+        await asyncio.sleep(0.15)
 
 async def run():
-    logger.info("Version 1.0 started. config: {}", config)
+    logger.info("Version 1.1 started. config: {}", config)
     browser_man = await BrowserManager.create()
     redis_man = RedisManager()
     parsers_list: list[Parser] = []
