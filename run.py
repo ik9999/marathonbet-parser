@@ -1,5 +1,4 @@
-from inc import BrowserManager
-from inc import Parser
+from inc import BrowserManager, Parser, RedisManager
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 import time
@@ -8,18 +7,21 @@ import sys
 import config
 from typing import Optional, List, Dict, Any, Awaitable
 
-async def run_single_parser(parser: Parser):
+async def run_single_parser(parser: Parser, redis_man: RedisManager):
     while True:
         logger.trace("called try_parse")
         res = await parser.try_parse()
         logger.trace("try_parse res for {}: {}", parser.item_to_parse['code'], res)
+        redis_man.save_odds(parser.item_to_parse['code'], res)
         if res is None:
             await asyncio.sleep(5)
             continue
         await asyncio.sleep(5)
 
 async def run():
+    logger.info("Version 1.0 started. config: {}", config)
     browser_man = await BrowserManager.create()
+    redis_man = RedisManager()
     parsers_list: list[Parser] = []
     for item_to_parse in config.data_to_parse:
         parser = Parser(browser_man, item_to_parse)
@@ -28,7 +30,7 @@ async def run():
 
     tasks: list[Awaitable] = []
     for parser in parsers_list:
-        tasks.append(run_single_parser(parser))
+        tasks.append(run_single_parser(parser, redis_man))
     await asyncio.gather(*tasks)
     time.sleep(100)
 
